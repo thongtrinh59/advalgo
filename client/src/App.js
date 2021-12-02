@@ -117,14 +117,26 @@ class ChatApp extends Component {
     console.log(this.state);
     if(current_message && enter){
       messages = [...messages, {"message":current_message}];
+      // console.log(111111111111111);
+      // console.log(messages);
+      // console.log(current_message);
       fetch("http://localhost:5000?message=" + current_message)
       .then(res => res.json())
       .then(
         (result) => {
           console.log(result);
-          this.setState({
-            messages: [...messages, {"message":result["message"], "isbotmessage":true}]
+          let output = ''
+          result["message"].forEach(element => {
+            output += element;
           });
+          this.setState({
+            // messages: [...messages, output]
+            messages: [...messages, {"message":output}]
+          });
+
+          // this.setState({
+          //   messages: [...messages, {"message":result["message"], "isbotmessage":true}]
+          // });
         },
         (error) => {
           //do nothing for now
@@ -161,6 +173,7 @@ class ChatApp extends Component {
     return (
       <div className="chat_window">
         <MessagesContainer messages={this.state.messages}></MessagesContainer>
+
         <div className="bottom_wrapper clearfix">
           <MessageTextBoxContainer 
             _handleKeyPress={this._handleKeyPress} 

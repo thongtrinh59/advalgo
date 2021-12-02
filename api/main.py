@@ -11,6 +11,8 @@ import copy
 # from dotenv import load_dotenv
 
 
+# load_dotenv()
+# API_KEY=os.getenv("API_KEY")
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -33,8 +35,8 @@ def index():
         'Hello! Can you please tell me your name?',
         'Good day! How about you tell me your name?',
         'Greetings! What can I call you?']
-        reply = random.choice(list_of_rep)
-        return jsonify({"message":reply})
+        # reply = random.choice(list_of_rep)
+        return jsonify({"message":list_of_rep})
 
     elif resp['intents'][0]['name'] == 'AskName':
         global USERNAME
